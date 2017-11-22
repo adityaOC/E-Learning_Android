@@ -12,7 +12,7 @@ public class ApiClient {
 
     private static Retrofit retrofit = null;
 
-    public static final String BASE_URL = "http://dev.tidyd.fr";
+    public static final String BASE_URL = "http://10.0.2.2:8000/api/";
 
     public static Retrofit getClient() {
         if (retrofit==null) {
