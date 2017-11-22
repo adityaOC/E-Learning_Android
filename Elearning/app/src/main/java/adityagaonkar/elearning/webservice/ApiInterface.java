@@ -19,7 +19,7 @@ public interface ApiInterface {
 
     //Authentication
     @Headers( "Content-Type: application/json" )
-    @POST("/loginR")
+    @POST("loginR/")
     Call<LoginResponse> login(@Body LoginRequest createUserRequest);
 
 }

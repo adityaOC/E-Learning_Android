@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         ProgressBarUtil.show(this, "Logging in..");
         AuthenticationManager.getInstance().login("apiuser@user.com", "Awesome1", new AuthenticationManager.AuthenticationManagerListener() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String token) {
                 ProgressBarUtil.dismiss();
-                Toast.makeText(MainActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Login success: "+ token, Toast.LENGTH_SHORT).show();
             }
 
             @Override

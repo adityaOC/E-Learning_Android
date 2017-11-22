@@ -26,7 +26,7 @@ public class AuthenticationManager {
             public void didCompleteRequest(LoginResponse response) {
                 if(response.getToken() != null){
                     //TODO: save token to shared pref
-                    authenticationManagerListener.onSuccess();
+                    authenticationManagerListener.onSuccess(response.getToken());
                 }else {
                     authenticationManagerListener.onFailure(new AppError(0, "Call Failed"));
                 }
@@ -35,7 +35,7 @@ public class AuthenticationManager {
     }
 
     public interface AuthenticationManagerListener{
-        void onSuccess();
+        void onSuccess(String token);
         void onFailure(AppError error);
     }
 }
