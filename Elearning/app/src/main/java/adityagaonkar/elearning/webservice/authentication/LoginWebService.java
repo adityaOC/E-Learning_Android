@@ -5,7 +5,6 @@ import android.util.Log;
 import adityagaonkar.elearning.webservice.ApiClient;
 import adityagaonkar.elearning.webservice.ApiInterface;
 import adityagaonkar.elearning.webservice.AppError;
-import adityagaonkar.elearning.webservice.BaseResponse;
 import adityagaonkar.elearning.webservice.BaseWebService;
 import retrofit2.Call;
 import retrofit2.Callback;
