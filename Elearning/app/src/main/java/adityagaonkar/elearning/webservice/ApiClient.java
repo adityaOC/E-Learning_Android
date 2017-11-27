@@ -40,24 +40,27 @@ public class ApiClient {
     public static Retrofit getClientWithTokenHeader(final Context context){
         if (retrofit==null) {
 
-            OkHttpClient okHttpClient = new OkHttpClient();
-            //OkHttpClient.Builder httpClientBuilder = okHttpClient.newBuilder();
-            okHttpClient.networkInterceptors().add(new Interceptor() {
+            OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+            httpClientBuilder.networkInterceptors().add(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
-                    Request.Builder builder = chain.request().newBuilder();
-                    Request request = builder.addHeader("token", SharedPrefsManager.readToken(context)).build();
+                    Request original = chain.request();
+                    String token = SharedPrefsManager.readToken(context);
+                    Request request = original.newBuilder()
+                            .header("token", token == null ? "" : token)
+                            .method(original.method(), original.body())
+                            .build();
 
                     return chain.proceed(request);
                 }
             });
 
+            OkHttpClient client = httpClientBuilder.build();
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttpClient)
+                    .client(client)
                     .build();
-
         }
         return retrofit;
     }
