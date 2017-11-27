@@ -8,9 +8,16 @@
     android:padding="20dp"
     tools:context="adityagaonkar.elearning.LoginActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/button_get_courses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="getCourses" />
+
+    <TextView
+        android:id="@+id/text_view_response"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>

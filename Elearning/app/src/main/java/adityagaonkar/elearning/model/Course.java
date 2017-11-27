@@ -54,4 +54,14 @@ public class Course {
     public void setCourseAvegrageRatings(Double courseAvegrageRatings) {
         this.courseAvegrageRatings = courseAvegrageRatings;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", courseName='" + courseName + '\'' +
+                ", courseAuthor=" + courseAuthor +
+                ", courseAvegrageRatings=" + courseAvegrageRatings +
+                '}';
+    }
 }

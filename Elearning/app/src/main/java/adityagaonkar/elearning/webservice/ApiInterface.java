@@ -1,5 +1,8 @@
 package adityagaonkar.elearning.webservice;
 
+import java.util.List;
+
+import adityagaonkar.elearning.model.Course;
 import adityagaonkar.elearning.webservice.authentication.LoginRequest;
 import adityagaonkar.elearning.webservice.authentication.LoginResponse;
 import retrofit2.Call;
@@ -21,5 +24,9 @@ public interface ApiInterface {
     @Headers( "Content-Type: application/json" )
     @POST("loginR/")
     Call<LoginResponse> login(@Body LoginRequest createUserRequest);
+
+    //get courses
+    @GET("getCourses/")
+    Call<List<Course>> getCourses();
 
 }
