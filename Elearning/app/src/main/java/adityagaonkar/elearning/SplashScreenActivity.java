@@ -26,8 +26,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                if(SharedPrefsManager.readToken(SplashScreenActivity.this) != null){
-                    //TODO: call home page
+                if(SharedPrefsManager.readToken(SplashScreenActivity.this) != null){ //check if already logged in
+                    startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
                 }else {
                     startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
                 }

@@ -1,5 +1,6 @@
 package adityagaonkar.elearning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -54,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(String token) {
                 ProgressBarUtil.dismiss();
                 Toast.makeText(LoginActivity.this, "Login success: "+ token, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                finish();
             }
 
             @Override
