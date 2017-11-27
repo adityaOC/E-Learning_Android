@@ -11,7 +11,7 @@ import adityagaonkar.elearning.manager.AuthenticationManager;
 import adityagaonkar.elearning.utility.ProgressBarUtil;
 import adityagaonkar.elearning.webservice.AppError;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private Button buttonLogin;
     private EditText editTextEmail, editTextPassword;
@@ -49,17 +49,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void login(){
         ProgressBarUtil.show(this, "Logging in..");
-        AuthenticationManager.getInstance().login(MainActivity.this, editTextEmail.getText().toString(), editTextPassword.getText().toString(), new AuthenticationManager.AuthenticationManagerListener() {
+        AuthenticationManager.getInstance().login(LoginActivity.this, editTextEmail.getText().toString(), editTextPassword.getText().toString(), new AuthenticationManager.AuthenticationManagerListener() {
             @Override
             public void onSuccess(String token) {
                 ProgressBarUtil.dismiss();
-                Toast.makeText(MainActivity.this, "Login success: "+ token, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login success: "+ token, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(AppError error) {
                 ProgressBarUtil.dismiss();
-                Toast.makeText(MainActivity.this, "Login failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login failure", Toast.LENGTH_SHORT).show();
             }
         });
     }
