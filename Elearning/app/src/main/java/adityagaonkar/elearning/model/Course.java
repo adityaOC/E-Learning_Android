@@ -17,10 +17,10 @@ public class Course {
     private String courseName;
     @SerializedName("course_author")
     @Expose
-    private Integer courseAuthor;
+    private String courseAuthor;
     @SerializedName("course_avegrage_ratings")
     @Expose
-    private Double courseAvegrageRatings;
+    private Float courseAvegrageRatings;
 
 
     public Integer getId() {
@@ -39,19 +39,19 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public Integer getCourseAuthor() {
+    public String getCourseAuthor() {
         return courseAuthor;
     }
 
-    public void setCourseAuthor(Integer courseAuthor) {
+    public void setCourseAuthor(String courseAuthor) {
         this.courseAuthor = courseAuthor;
     }
 
-    public Double getCourseAvegrageRatings() {
+    public Float getCourseAvegrageRatings() {
         return courseAvegrageRatings;
     }
 
-    public void setCourseAvegrageRatings(Double courseAvegrageRatings) {
+    public void setCourseAvegrageRatings(Float courseAvegrageRatings) {
         this.courseAvegrageRatings = courseAvegrageRatings;
     }
 
