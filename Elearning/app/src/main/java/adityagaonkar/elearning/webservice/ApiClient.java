@@ -47,7 +47,7 @@ public class ApiClient {
                     Request original = chain.request();
                     String token = SharedPrefsManager.readToken(context);
                     Request request = original.newBuilder()
-                            .header("token", token == null ? "" : token)
+                            .header("Authorization", token == null ? "" : "Token " + token)
                             .method(original.method(), original.body())
                             .build();
 
