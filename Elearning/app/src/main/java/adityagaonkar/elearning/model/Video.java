@@ -12,12 +12,15 @@ public class Video {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("name")
+    @SerializedName("video_name")
     @Expose
-    private String name;
-    @SerializedName("description")
+    private String videoName;
+    @SerializedName("video_link")
     @Expose
-    private String description;
+    private String videoLink;
+    @SerializedName("video_description")
+    @Expose
+    private String videoDescription;
 
     public Integer getId() {
         return id;
@@ -27,19 +30,27 @@ public class Video {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getVideoName() {
+        return videoName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getVideoLink() {
+        return videoLink;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setVideoLink(String videoLink) {
+        this.videoLink = videoLink;
+    }
+
+    public String getVideoDescription() {
+        return videoDescription;
+    }
+
+    public void setVideoDescription(String videoDescription) {
+        this.videoDescription = videoDescription;
     }
 }
