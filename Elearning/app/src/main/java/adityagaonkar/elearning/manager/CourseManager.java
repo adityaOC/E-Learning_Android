@@ -5,7 +5,9 @@ import android.content.Context;
 import java.util.List;
 
 import adityagaonkar.elearning.model.Course;
+import adityagaonkar.elearning.model.CourseDetail;
 import adityagaonkar.elearning.webservice.AppError;
+import adityagaonkar.elearning.webservice.courses.GetCourseDetailsWebService;
 import adityagaonkar.elearning.webservice.courses.GetCoursesWebService;
 
 /**
@@ -37,6 +39,25 @@ public class CourseManager {
 
     public interface GetCoursesManagerListener{
         void onSuccess(List<Course> courses);
+        void onFailure(AppError error);
+    }
+
+    public void getCourseDetails(final Context context, Integer courseId, final GetCourseDetailsManagerListener getCourseDetailsManagerListener){
+
+        GetCourseDetailsWebService.getCourseDetails(context, courseId, new GetCourseDetailsWebService.CourseDetailsWebServiceListener() {
+            @Override
+            public void didCompleteRequest(CourseDetail courseDetail, AppError appError) {
+                if(courseDetail != null){
+                    getCourseDetailsManagerListener.onSuccess(courseDetail);
+                }else {
+                    getCourseDetailsManagerListener.onFailure(appError);
+                }
+            }
+        });
+    }
+
+    public interface GetCourseDetailsManagerListener{
+        void onSuccess(CourseDetail courseDetail);
         void onFailure(AppError error);
     }
 }

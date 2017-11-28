@@ -62,8 +62,8 @@ public class VideoListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Video video = videoList.get(position);
-        viewHolder.textViewName.setText(video.getName());
-        viewHolder.textViewDescription.setText(video.getDescription());
+        viewHolder.textViewName.setText(video.getVideoName());
+        viewHolder.textViewDescription.setText(video.getVideoDescription());
 
        /* List<ImageDetail> images = goodsObject.getObjectImages();
         if(!images.isEmpty()){

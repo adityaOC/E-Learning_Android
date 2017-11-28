@@ -34,6 +34,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         ListView listView = findViewById(R.id.course_list_view);
         courseListAdapter = new CourseListAdapter(courseList, this);
         listView.setAdapter(courseListAdapter);
+        listView.setOnItemClickListener(this);
 
         getCourses();
     }
@@ -59,7 +60,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        DetailActivity.courseIndex = i;
+        Course course = courseList.get(i);
+        DetailActivity.courseId = course.getId();
         startActivity(new Intent(HomeActivity.this, DetailActivity.class));
     }
 }

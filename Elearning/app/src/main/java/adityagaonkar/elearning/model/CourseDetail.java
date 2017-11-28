@@ -18,7 +18,7 @@ public class CourseDetail {
     private String name;
     @SerializedName("course_author")
     @Expose
-    private Integer author;
+    private String author;
     @SerializedName("course_videos")
     @Expose
     private List<Video> videos = null;
@@ -42,11 +42,11 @@ public class CourseDetail {
         this.name = name;
     }
 
-    public Integer getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Integer author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
