@@ -1,43 +1,67 @@
 package adityagaonkar.elearning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import adityagaonkar.elearning.manager.CourseManager;
 import adityagaonkar.elearning.model.Course;
+import adityagaonkar.elearning.utility.ProgressBarUtil;
 import adityagaonkar.elearning.webservice.AppError;
-import adityagaonkar.elearning.webservice.courses.GetCoursesWebService;
 
 /**
  * Created by Nikhil on 11/27/17.
  */
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    TextView textView;
+    private CourseListAdapter courseListAdapter;
+    private List<Course> courseList = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        setTitle("Courses");
 
-        textView =  findViewById(R.id.text_view_response);
+        ListView listView = findViewById(R.id.course_list_view);
+        courseListAdapter = new CourseListAdapter(courseList, this);
+        listView.setAdapter(courseListAdapter);
+        listView.setOnItemClickListener(this);
 
-        findViewById(R.id.button_get_courses).setOnClickListener(new View.OnClickListener() {
+        getCourses();
+    }
+
+    private void getCourses(){
+        ProgressBarUtil.show(this, "Fetching courses..");
+        CourseManager.getInstance().getCourses(HomeActivity.this, new CourseManager.GetCoursesManagerListener() {
             @Override
-            public void onClick(View view) {
-                GetCoursesWebService.getCourses(HomeActivity.this, new GetCoursesWebService.LoginWebServiceListener() {
-                    @Override
-                    public void didCompleteRequest(List<Course> courses, AppError appError) {
-                        if(courses != null){
-                            textView.setText(courses.toString());
-                        }
-                    }
-                });
+            public void onSuccess(List<Course> courses) {
+                ProgressBarUtil.dismiss();
+                courseList.clear();
+                courseList.addAll(courses);
+                courseListAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(AppError error) {
+                ProgressBarUtil.dismiss();
+                Toast.makeText(HomeActivity.this, "Error fetching courses", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Course course = courseList.get(i);
+        DetailActivity.courseId = course.getId();
+        startActivity(new Intent(HomeActivity.this, DetailActivity.class));
     }
 }
