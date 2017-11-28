@@ -21,11 +21,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     private static Retrofit retrofit = null;
+    private static Retrofit retrofitWithHeader = null;
 
     public static final String BASE_URL_LIVE = "http://10.0.2.2:8000/api/";
     public static final String BASE_URL_MOCK = "https://private-0bb5ef-getcourses1.apiary-mock.com/";
 
-    public static final String BASE_URL = BASE_URL_MOCK;
+    public static final String BASE_URL = BASE_URL_LIVE;
 
     public static Retrofit getClient() {
         if (retrofit==null) {
@@ -38,7 +39,7 @@ public class ApiClient {
     }
 
     public static Retrofit getClientWithTokenHeader(final Context context){
-        if (retrofit==null) {
+        if (retrofitWithHeader==null) {
 
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
             httpClientBuilder.networkInterceptors().add(new Interceptor() {
@@ -56,13 +57,13 @@ public class ApiClient {
             });
 
             OkHttpClient client = httpClientBuilder.build();
-            retrofit = new Retrofit.Builder()
+            retrofitWithHeader = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();
         }
-        return retrofit;
+        return retrofitWithHeader;
     }
 
 }

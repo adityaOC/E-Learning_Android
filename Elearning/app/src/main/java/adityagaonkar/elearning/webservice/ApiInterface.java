@@ -26,7 +26,7 @@ public interface ApiInterface {
     Call<LoginResponse> login(@Body LoginRequest createUserRequest);
 
     //get courses
-    @GET("getCourses/")
+    @GET("getAllCourses/")
     Call<List<Course>> getCourses();
 
 }
