@@ -12,28 +12,23 @@ import adityagaonkar.elearning.manager.AuthenticationManager;
 import adityagaonkar.elearning.utility.ProgressBarUtil;
 import adityagaonkar.elearning.webservice.AppError;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button buttonLogin;
+    private Button buttonLogin, buttonSignup;
     private EditText editTextEmail, editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         setTitle("Login");
 
         buttonLogin = findViewById(R.id.button_login);
         editTextEmail = findViewById(R.id.login_edit_email);
         editTextPassword = findViewById(R.id.login_edit_password);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(validate()) {
-                    login();
-                }
-            }
-        });
+        buttonSignup = findViewById(R.id.button_sign_up);
+        buttonLogin.setOnClickListener(this);
+        buttonSignup.setOnClickListener(this);
     }
 
     private boolean validate() {
@@ -52,9 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         ProgressBarUtil.show(this, "Logging in..");
         AuthenticationManager.getInstance().login(LoginActivity.this, editTextEmail.getText().toString(), editTextPassword.getText().toString(), new AuthenticationManager.AuthenticationManagerListener() {
             @Override
-            public void onSuccess(String token) {
+            public void onSuccess() {
                 ProgressBarUtil.dismiss();
-                Toast.makeText(LoginActivity.this, "Login success: "+ token, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             }
@@ -65,5 +60,22 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login failure", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.button_login : {
+                if(validate()) {
+                    login();
+                }
+            }
+            break;
+
+            case R.id.button_sign_up : {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+            break;
+        }
     }
 }

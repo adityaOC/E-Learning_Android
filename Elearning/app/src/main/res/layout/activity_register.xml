@@ -9,30 +9,36 @@
     tools:context="adityagaonkar.elearning.LoginActivity">
 
     <EditText
-        android:id="@+id/login_edit_email"
+        android:id="@+id/register_edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Email"
-        android:text="apiuser@user.com"
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/login_edit_password"
+        android:id="@+id/register_edit_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="First Name" />
+
+    <EditText
+        android:id="@+id/register_edit_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Last Name" />
+
+    <EditText
+        android:id="@+id/register_edit_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
-        android:text="Awesome1"
         android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/button_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="88dp" />
 
     <Button
         android:id="@+id/button_sign_up"

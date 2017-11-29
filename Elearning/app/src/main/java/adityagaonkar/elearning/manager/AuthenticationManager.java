@@ -6,6 +6,9 @@ import adityagaonkar.elearning.webservice.AppError;
 import adityagaonkar.elearning.webservice.authentication.LoginRequest;
 import adityagaonkar.elearning.webservice.authentication.LoginResponse;
 import adityagaonkar.elearning.webservice.authentication.LoginWebService;
+import adityagaonkar.elearning.webservice.authentication.RegisterRequest;
+import adityagaonkar.elearning.webservice.authentication.RegisterResponse;
+import adityagaonkar.elearning.webservice.authentication.RegisterWebService;
 
 /**
  * Created by Nikhil on 11/21/17.
@@ -29,7 +32,7 @@ public class AuthenticationManager {
                 if(response != null && response.getToken() != null){
                     // save token to shared pref
                     SharedPrefsManager.writeToken(context, response.getToken());
-                    authenticationManagerListener.onSuccess(response.getToken());
+                    authenticationManagerListener.onSuccess();
                 }else {
                     authenticationManagerListener.onFailure(new AppError(0, "Call Failed"));
                 }
@@ -37,8 +40,23 @@ public class AuthenticationManager {
         });
     }
 
+    public void register(final Context context, String userName, String firstName, String lastName, String password, final AuthenticationManagerListener authenticationManagerListener){
+        RegisterRequest registerRequest = new RegisterRequest(userName, firstName, lastName, password);
+        RegisterWebService.register(registerRequest, new RegisterWebService.RegisterWebServiceListener() {
+            @Override
+            public void didCompleteRequest(RegisterResponse response) {
+                if(response!=null && response.getError() == null && response.getId() != null){
+                    authenticationManagerListener.onSuccess();
+                }else {
+                    authenticationManagerListener.onFailure(new AppError(0, "Registration failed"));
+                }
+            }
+        });
+    }
+
+
     public interface AuthenticationManagerListener{
-        void onSuccess(String token);
+        void onSuccess();
         void onFailure(AppError error);
     }
 }

@@ -6,6 +6,8 @@ import adityagaonkar.elearning.model.Course;
 import adityagaonkar.elearning.model.CourseDetail;
 import adityagaonkar.elearning.webservice.authentication.LoginRequest;
 import adityagaonkar.elearning.webservice.authentication.LoginResponse;
+import adityagaonkar.elearning.webservice.authentication.RegisterRequest;
+import adityagaonkar.elearning.webservice.authentication.RegisterResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -26,6 +28,10 @@ public interface ApiInterface {
     @Headers( "Content-Type: application/json" )
     @POST("loginR/")
     Call<LoginResponse> login(@Body LoginRequest createUserRequest);
+
+    @Headers( "Content-Type: application/json" )
+    @POST("register/")
+    Call<RegisterResponse> register(@Body RegisterRequest registerRequest);
 
     //get courses
     @GET("getAllCourses/")
