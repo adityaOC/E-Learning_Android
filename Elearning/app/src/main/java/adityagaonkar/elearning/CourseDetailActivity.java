@@ -44,6 +44,27 @@ public class CourseDetailActivity extends AppCompatActivity implements AdapterVi
         textViewAuthor = findViewById(R.id.course_detail_text_author);
         ratingBar = findViewById(R.id.course_detail_rating_bar);
 
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
+                ProgressBarUtil.show(CourseDetailActivity.this, "Updating..");
+                CourseManager.getInstance().updateRatings(courseId, rating, new CourseManager.UpdateRatingsManagerListener() {
+                    @Override
+                    public void onSuccess() {
+                        ProgressBarUtil.dismiss();
+                        Toast.makeText(CourseDetailActivity.this, "Ratings updated", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(AppError error) {
+                        ProgressBarUtil.dismiss();
+                        Toast.makeText(CourseDetailActivity.this, "Failed to update Ratings", Toast.LENGTH_SHORT).show();
+                        getCourseDetails();
+                    }
+                });
+            }
+        });
+
         ListView listView = findViewById(R.id.video_list_view);
         videoListAdapter = new VideoListAdapter(videoList, this);
         listView.setAdapter(videoListAdapter);
