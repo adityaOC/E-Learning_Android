@@ -21,7 +21,7 @@ import adityagaonkar.elearning.webservice.AppError;
  * Created by Nikhil on 11/28/17.
  */
 
-public class DetailActivity extends AppCompatActivity {
+public class CourseDetailActivity extends AppCompatActivity {
 
     public static Integer courseId;
 
@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(AppError error) {
                 ProgressBarUtil.dismiss();
-                Toast.makeText(DetailActivity.this, "Error fetching videos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CourseDetailActivity.this, "Error fetching videos", Toast.LENGTH_SHORT).show();
             }
         });
     }

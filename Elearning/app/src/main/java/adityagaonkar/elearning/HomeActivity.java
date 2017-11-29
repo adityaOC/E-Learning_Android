@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Course course = courseList.get(i);
-        DetailActivity.courseId = course.getId();
-        startActivity(new Intent(HomeActivity.this, DetailActivity.class));
+        CourseDetailActivity.courseId = course.getId();
+        startActivity(new Intent(HomeActivity.this, CourseDetailActivity.class));
     }
 }
