@@ -8,6 +8,8 @@ import adityagaonkar.elearning.webservice.authentication.LoginRequest;
 import adityagaonkar.elearning.webservice.authentication.LoginResponse;
 import adityagaonkar.elearning.webservice.authentication.RegisterRequest;
 import adityagaonkar.elearning.webservice.authentication.RegisterResponse;
+import adityagaonkar.elearning.webservice.ratings.RatingUpdateRequest;
+import adityagaonkar.elearning.webservice.ratings.RatingUpdateResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -39,5 +41,9 @@ public interface ApiInterface {
 
     @GET("courseDetail/{courseId}/")
     Call<CourseDetail> getCourseDetails(@Path("courseId") Integer courseId);
+
+    @Headers( "Content-Type: application/json" )
+    @POST("ratings/{courseId}/update/")
+    Call<RatingUpdateResponse> updateRatings(@Path("courseId") Integer courseId, @Body RatingUpdateRequest ratingUpdateRequest);
 
 }
