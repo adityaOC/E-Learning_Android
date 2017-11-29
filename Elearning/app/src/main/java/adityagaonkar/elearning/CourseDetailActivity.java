@@ -1,8 +1,11 @@
 package adityagaonkar.elearning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,7 +24,7 @@ import adityagaonkar.elearning.webservice.AppError;
  * Created by Nikhil on 11/28/17.
  */
 
-public class CourseDetailActivity extends AppCompatActivity {
+public class CourseDetailActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     public static Integer courseId;
 
@@ -33,7 +36,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_course_detail);
 
         setTitle("Detail");
 
@@ -44,6 +47,8 @@ public class CourseDetailActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.video_list_view);
         videoListAdapter = new VideoListAdapter(videoList, this);
         listView.setAdapter(videoListAdapter);
+
+        listView.setOnItemClickListener(this);
 
         getCourseDetails();
     }
@@ -71,5 +76,11 @@ public class CourseDetailActivity extends AppCompatActivity {
                 Toast.makeText(CourseDetailActivity.this, "Error fetching videos", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        VideoDetailActivity.video = videoList.get(i);
+        startActivity(new Intent(CourseDetailActivity.this, VideoDetailActivity.class));
     }
 }
