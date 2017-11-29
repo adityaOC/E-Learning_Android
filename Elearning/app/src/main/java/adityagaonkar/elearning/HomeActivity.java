@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adityagaonkar.elearning.manager.CourseManager;
+import adityagaonkar.elearning.manager.SharedPrefsManager;
 import adityagaonkar.elearning.model.Course;
 import adityagaonkar.elearning.utility.ProgressBarUtil;
 import adityagaonkar.elearning.webservice.AppError;
@@ -30,6 +31,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setTitle("Courses");
+
+        findViewById(R.id.button_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPrefsManager.writeToken(HomeActivity.this, null);
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
 
         ListView listView = findViewById(R.id.course_list_view);
         courseListAdapter = new CourseListAdapter(courseList, this);
