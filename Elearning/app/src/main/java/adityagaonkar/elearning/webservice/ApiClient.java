@@ -26,7 +26,7 @@ public class ApiClient {
     public static final String BASE_URL_LIVE = "http://10.0.2.2:8000/api/";
     public static final String BASE_URL_MOCK = "https://private-0bb5ef-getcourses1.apiary-mock.com/";
 
-    public static final String BASE_URL = BASE_URL_MOCK;
+    public static final String BASE_URL = BASE_URL_LIVE;
 
     public static Retrofit getClient() {
         if (retrofit==null) {
