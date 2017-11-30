@@ -19,6 +19,9 @@ public class CourseDetail {
     @SerializedName("course_author")
     @Expose
     private String author;
+    @SerializedName("course_avegrage_ratings")
+    @Expose
+    private Float course_avegrage_ratings;
     @SerializedName("course_videos")
     @Expose
     private List<Video> videos = null;
@@ -64,5 +67,13 @@ public class CourseDetail {
 
     public void setCourseRatings(List<CourseRating> courseRatings) {
         this.courseRatings = courseRatings;
+    }
+
+    public Float getCourse_avegrage_ratings() {
+        return course_avegrage_ratings;
+    }
+
+    public void setCourse_avegrage_ratings(Float course_avegrage_ratings) {
+        this.course_avegrage_ratings = course_avegrage_ratings;
     }
 }
