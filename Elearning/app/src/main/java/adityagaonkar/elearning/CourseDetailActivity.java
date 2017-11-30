@@ -91,7 +91,7 @@ public class CourseDetailActivity extends AppCompatActivity implements AdapterVi
                 CourseDetailActivity.this.courseDetail = courseDetail;
 
                 textViewCourseName.setText(courseDetail.getName());
-                textViewAuthor.setText(courseDetail.getAuthor());
+                textViewAuthor.setText(String.format("%s %s", courseDetail.getCourseAuthorList().get(0).getFirstName(), courseDetail.getCourseAuthorList().get(0).getLastName()));
                 /*if(!courseDetail.getCourseRatings().isEmpty()) {
                     //ratingBar.setRating(courseDetail.getCourseRatings().get(0).getRating());
 

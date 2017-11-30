@@ -16,9 +16,9 @@ public class CourseDetail {
     @SerializedName("course_name")
     @Expose
     private String name;
-    @SerializedName("course_author")
+    @SerializedName("courseAuthor")
     @Expose
-    private String author;
+    private List<CourseAuthor> courseAuthorList;
     @SerializedName("course_avegrage_ratings")
     @Expose
     private Float course_avegrage_ratings;
@@ -45,12 +45,12 @@ public class CourseDetail {
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<CourseAuthor> getCourseAuthorList() {
+        return courseAuthorList;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setCourseAuthorList(List<CourseAuthor> courseAuthorList) {
+        this.courseAuthorList = courseAuthorList;
     }
 
     public List<Video> getVideos() {
