@@ -1,13 +1,19 @@
 package adityagaonkar.elearning;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,13 +42,21 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         setTitle("Courses");
 
         editTextSearch = findViewById(R.id.home_edit_search);
+        editTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    search();
+                }
+                return false;
+            }
+        });
+
 
         findViewById(R.id.button_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!editTextSearch.getText().toString().isEmpty()) {
-                    getCourses(editTextSearch.getText().toString());
-                }
+                search();
             }
         });
 
@@ -59,6 +73,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 editTextSearch.setText("");
+                dismissKeyboard();
                 getCourses(null);
             }
         });
@@ -69,6 +84,22 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setOnItemClickListener(this);
 
         getCourses(null);
+    }
+
+    private void search() {
+        dismissKeyboard();
+        if(!editTextSearch.getText().toString().isEmpty()) {
+            getCourses(editTextSearch.getText().toString());
+        }
+    }
+
+    private void dismissKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        try {
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getCourses(String searchText){
