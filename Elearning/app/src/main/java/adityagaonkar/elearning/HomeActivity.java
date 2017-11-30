@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,11 +27,24 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private CourseListAdapter courseListAdapter;
     private List<Course> courseList = new ArrayList<>();
+    private EditText editTextSearch;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setTitle("Courses");
+
+        editTextSearch = findViewById(R.id.home_edit_search);
+
+        findViewById(R.id.button_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!editTextSearch.getText().toString().isEmpty()) {
+                    getCourses(editTextSearch.getText().toString());
+                }
+            }
+        });
 
         findViewById(R.id.button_logout).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,17 +55,25 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        findViewById(R.id.button_clear_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextSearch.setText("");
+                getCourses(null);
+            }
+        });
+
         ListView listView = findViewById(R.id.course_list_view);
         courseListAdapter = new CourseListAdapter(courseList, this);
         listView.setAdapter(courseListAdapter);
         listView.setOnItemClickListener(this);
 
-        getCourses();
+        getCourses(null);
     }
 
-    private void getCourses(){
+    private void getCourses(String searchText){
         ProgressBarUtil.show(this, "Fetching courses..");
-        CourseManager.getInstance().getCourses(HomeActivity.this, new CourseManager.GetCoursesManagerListener() {
+        CourseManager.getInstance().getCourses(HomeActivity.this, searchText, new CourseManager.GetCoursesManagerListener() {
             @Override
             public void onSuccess(List<Course> courses) {
                 ProgressBarUtil.dismiss();

@@ -17,6 +17,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Nikhil on 4/12/17.
@@ -39,6 +40,10 @@ public interface ApiInterface {
     //get courses
     @GET("getAllCourses/")
     Call<List<Course>> getCourses();
+
+    //get courses with search text
+    @GET("getAllCourses/")
+    Call<List<Course>> getCourses(@Query("q") String searchText);
 
     @GET("courseDetail/{courseId}/")
     Call<CourseDetail> getCourseDetails(@Path("courseId") Integer courseId);

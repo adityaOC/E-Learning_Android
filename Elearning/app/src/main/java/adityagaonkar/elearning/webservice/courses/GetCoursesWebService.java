@@ -1,6 +1,7 @@
 package adityagaonkar.elearning.webservice.courses;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.List;
@@ -21,10 +22,10 @@ import retrofit2.Response;
  */
 
 public class GetCoursesWebService extends BaseWebService {
-    public static void getCourses(Context context, final LoginWebServiceListener loginWebServiceListener){
+    public static void getCourses(Context context, @Nullable String searchText, final LoginWebServiceListener loginWebServiceListener){
 
         ApiInterface apiService = ApiClient.getClientWithTokenHeader(context).create(ApiInterface.class);
-        Call<List<Course>> call = apiService.getCourses();
+        Call<List<Course>> call = searchText == null ? apiService.getCourses() : apiService.getCourses(searchText);
         call.enqueue(new Callback<List<Course>>() {
 
             @Override

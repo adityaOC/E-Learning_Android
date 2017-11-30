@@ -1,6 +1,7 @@
 package adityagaonkar.elearning.manager;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -27,8 +28,8 @@ public class CourseManager {
     private CourseManager() {
     }
 
-    public void getCourses(final Context context, final GetCoursesManagerListener getCoursesManagerListener){
-        GetCoursesWebService.getCourses(context, new GetCoursesWebService.LoginWebServiceListener() {
+    public void getCourses(final Context context, @Nullable String searchText, final GetCoursesManagerListener getCoursesManagerListener){
+        GetCoursesWebService.getCourses(context, searchText, new GetCoursesWebService.LoginWebServiceListener() {
             @Override
             public void didCompleteRequest(List<Course> courses, AppError appError) {
                 if(courses != null){
