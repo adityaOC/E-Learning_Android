@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="#bcbcbc"
         android:orientation="vertical">
 
         <View
@@ -29,8 +28,9 @@
                 android:ems="10"
                 android:layout_marginStart="5dp"
                 android:layout_toStartOf="@id/button_search"
-                android:inputType="textPersonName"
-                android:text="Search" />
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:hint="Search" />
 
             <ImageButton
                 android:id="@+id/button_search"
