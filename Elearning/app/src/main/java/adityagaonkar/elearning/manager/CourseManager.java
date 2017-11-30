@@ -64,10 +64,10 @@ public class CourseManager {
         void onFailure(AppError error);
     }
 
-    public void updateRatings(Integer courseId, Float rating, final UpdateRatingsManagerListener updateRatingsManagerListener){
+    public void updateRatings(Context context, Integer courseId, Float rating, final UpdateRatingsManagerListener updateRatingsManagerListener){
 
         RatingUpdateRequest ratingUpdateRequest = new RatingUpdateRequest(rating);
-        UpdateRatingsWebService.updateRatings(ratingUpdateRequest, courseId, new UpdateRatingsWebService.UpdateRatingsWebServiceListener() {
+        UpdateRatingsWebService.updateRatings(context,ratingUpdateRequest, courseId, new UpdateRatingsWebService.UpdateRatingsWebServiceListener() {
             @Override
             public void didCompleteRequest(RatingUpdateResponse response) {
                 if(response != null && response.getStatus() == 1){

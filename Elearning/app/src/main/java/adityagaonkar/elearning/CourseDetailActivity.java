@@ -32,6 +32,7 @@ public class CourseDetailActivity extends AppCompatActivity implements AdapterVi
     private List<Video> videoList = new ArrayList<>();
     private TextView textViewCourseName, textViewAuthor;
     private RatingBar ratingBar;
+    private CourseDetail courseDetail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,21 +48,24 @@ public class CourseDetailActivity extends AppCompatActivity implements AdapterVi
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
-                ProgressBarUtil.show(CourseDetailActivity.this, "Updating..");
-                CourseManager.getInstance().updateRatings(courseId, rating, new CourseManager.UpdateRatingsManagerListener() {
-                    @Override
-                    public void onSuccess() {
-                        ProgressBarUtil.dismiss();
-                        Toast.makeText(CourseDetailActivity.this, "Ratings updated", Toast.LENGTH_SHORT).show();
-                    }
+                if(rating != courseDetail.getCourse_avegrage_ratings()) {
 
-                    @Override
-                    public void onFailure(AppError error) {
-                        ProgressBarUtil.dismiss();
-                        Toast.makeText(CourseDetailActivity.this, "Failed to update Ratings", Toast.LENGTH_SHORT).show();
-                        getCourseDetails();
-                    }
-                });
+                    ProgressBarUtil.show(CourseDetailActivity.this, "Updating..");
+                    CourseManager.getInstance().updateRatings(CourseDetailActivity.this, courseId, rating, new CourseManager.UpdateRatingsManagerListener() {
+                        @Override
+                        public void onSuccess() {
+                            ProgressBarUtil.dismiss();
+                            Toast.makeText(CourseDetailActivity.this, "Ratings updated", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(AppError error) {
+                            ProgressBarUtil.dismiss();
+                            Toast.makeText(CourseDetailActivity.this, "Failed to update Ratings", Toast.LENGTH_SHORT).show();
+                            getCourseDetails();
+                        }
+                    });
+                }
             }
         });
 
@@ -83,6 +87,8 @@ public class CourseDetailActivity extends AppCompatActivity implements AdapterVi
                 videoList.clear();
                 videoList.addAll(courseDetail.getVideos());
                 videoListAdapter.notifyDataSetChanged();
+
+                CourseDetailActivity.this.courseDetail = courseDetail;
 
                 textViewCourseName.setText(courseDetail.getName());
                 textViewAuthor.setText(courseDetail.getAuthor());

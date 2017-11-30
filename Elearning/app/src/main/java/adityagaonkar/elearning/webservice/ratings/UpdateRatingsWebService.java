@@ -1,5 +1,6 @@
 package adityagaonkar.elearning.webservice.ratings;
 
+import android.content.Context;
 import android.util.Log;
 
 import adityagaonkar.elearning.webservice.ApiClient;
@@ -18,9 +19,9 @@ import retrofit2.Response;
 
 public class UpdateRatingsWebService extends BaseWebService {
 
-    public static void updateRatings(RatingUpdateRequest ratingUpdateRequest, Integer courseId, final UpdateRatingsWebServiceListener updateRatingsWebServiceListener){
+    public static void updateRatings(Context context, RatingUpdateRequest ratingUpdateRequest, Integer courseId, final UpdateRatingsWebServiceListener updateRatingsWebServiceListener){
 
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiService = ApiClient.getClientWithTokenHeader(context).create(ApiInterface.class);
         Call<RatingUpdateResponse> call = apiService.updateRatings(courseId, ratingUpdateRequest);
         call.enqueue(new Callback<RatingUpdateResponse>() {
 
