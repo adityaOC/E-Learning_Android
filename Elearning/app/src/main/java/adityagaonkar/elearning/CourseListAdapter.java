@@ -1,6 +1,9 @@
 package adityagaonkar.elearning;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import adityagaonkar.elearning.model.Course;
@@ -65,6 +72,7 @@ public class CourseListAdapter extends BaseAdapter {
         viewHolder.textViewName.setText(course.getCourseName());
         viewHolder.textViewAuthor.setText(course.getCourseAuthor());
         viewHolder.ratingBar.setRating(course.getCourseAvegrageRatings());
+        Picasso.with(context).load(course.getCourse_thumbnail_url()).into(viewHolder.imageView);
 
        /* List<ImageDetail> images = goodsObject.getObjectImages();
         if(!images.isEmpty()){

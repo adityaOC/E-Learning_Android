@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import adityagaonkar.elearning.model.Course;
@@ -64,7 +66,8 @@ public class VideoListAdapter extends BaseAdapter {
         Video video = videoList.get(position);
         viewHolder.textViewName.setText(video.getVideoName());
         viewHolder.textViewDescription.setText(video.getVideoDescription());
-
+        String link = video.getCourse_thumbnail_url();
+        Picasso.with(context).load("http://www.discovery-global.net/About%20Us_files/elearning.gif").into(viewHolder.imageView);
        /* List<ImageDetail> images = goodsObject.getObjectImages();
         if(!images.isEmpty()){
             Picasso.with(context).load(images.get(0).getUrl()).fit().centerCrop().into(viewHolder.imageViewObject);

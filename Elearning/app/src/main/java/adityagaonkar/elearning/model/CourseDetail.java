@@ -29,6 +29,19 @@ public class CourseDetail {
     @Expose
     private List<CourseRating> courseRatings = null;
 
+    @SerializedName("course_thumbnail_url")
+    @Expose
+
+    private String course_thumbnail_url;
+
+    public String getCourse_thumbnail_url() {
+        return course_thumbnail_url;
+    }
+
+    public void setCourse_thumbnail_url(String course_thumbnail_url) {
+        this.course_thumbnail_url = course_thumbnail_url;
+    }
+
     public Integer getId() {
         return id;
     }
