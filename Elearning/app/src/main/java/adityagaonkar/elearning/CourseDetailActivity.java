@@ -1,9 +1,13 @@
 package adityagaonkar.elearning;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -45,27 +49,31 @@ public class CourseDetailActivity extends AppCompatActivity implements AdapterVi
         textViewAuthor = findViewById(R.id.course_detail_text_author);
         ratingBar = findViewById(R.id.course_detail_rating_bar);
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        findViewById(R.id.course_detail_text_add_rating).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
-                if(rating != courseDetail.getCourse_avegrage_ratings()) {
+            public void onClick(View view) {
+                final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CourseDetailActivity.this);
+                final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View dialogView = inflater.inflate(R.layout.custom_rating_dialog, null);
+                dialogBuilder.setView(dialogView);
 
-                    ProgressBarUtil.show(CourseDetailActivity.this, "Updating..");
-                    CourseManager.getInstance().updateRatings(CourseDetailActivity.this, courseId, rating, new CourseManager.UpdateRatingsManagerListener() {
-                        @Override
-                        public void onSuccess() {
-                            ProgressBarUtil.dismiss();
-                            Toast.makeText(CourseDetailActivity.this, "Ratings updated", Toast.LENGTH_SHORT).show();
-                        }
+                //final EditText editText = (EditText) dialogView.findViewById(R.id.custom_dialog_edit_text);
+                final RatingBar ratingBar = dialogView.findViewById(R.id.custom_dialog_rating_bar);
 
-                        @Override
-                        public void onFailure(AppError error) {
-                            ProgressBarUtil.dismiss();
-                            Toast.makeText(CourseDetailActivity.this, "Failed to update Ratings", Toast.LENGTH_SHORT).show();
-                            getCourseDetails();
-                        }
-                    });
-                }
+                dialogBuilder.setTitle("Rate this course");
+                dialogBuilder.setMessage("");
+                dialogBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        updateUserRating(ratingBar.getRating());
+                    }
+                });
+                dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog b = dialogBuilder.create();
+                b.show();
             }
         });
 
@@ -76,6 +84,24 @@ public class CourseDetailActivity extends AppCompatActivity implements AdapterVi
         listView.setOnItemClickListener(this);
 
         getCourseDetails();
+    }
+
+    private void updateUserRating(float rating) {
+        ProgressBarUtil.show(CourseDetailActivity.this, "Updating..");
+        CourseManager.getInstance().updateRatings(CourseDetailActivity.this, courseId, rating, new CourseManager.UpdateRatingsManagerListener() {
+            @Override
+            public void onSuccess() {
+                ProgressBarUtil.dismiss();
+                Toast.makeText(CourseDetailActivity.this, "Ratings updated", Toast.LENGTH_SHORT).show();
+                getCourseDetails();
+            }
+
+            @Override
+            public void onFailure(AppError error) {
+                ProgressBarUtil.dismiss();
+                Toast.makeText(CourseDetailActivity.this, "Failed to update Ratings", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getCourseDetails() {

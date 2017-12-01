@@ -33,8 +33,15 @@
             android:id="@+id/course_detail_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:isIndicator="false"
             style="?android:attr/ratingBarStyleIndicator"/>
+
+        <TextView
+            android:id="@+id/course_detail_text_add_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:text="Click here to rate this course"/>
 
     </LinearLayout>
 
